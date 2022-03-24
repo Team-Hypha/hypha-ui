@@ -10,6 +10,17 @@ function App() {
     setActiveKey(eventKey)
   }
 
+  const getIframeSource = key => {
+    switch (key) {
+      case 'home':
+        return 'http://localhost:80'
+      case 'logs':
+        return 'http://localhost:80/d/nl-C4rE7k/logs-dashboard?orgId=1'
+      case 'traces':
+        return 'http://localhost:80/explore?orgId=1&left=%7B%22datasource%22:%22Jaeger%22,%22queries%22:%5B%7B%22refId%22:%22A%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D'
+    }
+  }
+
   return (
     <div>
       <div className="nav-wrapper">
@@ -29,9 +40,9 @@ function App() {
           </Sidenav.Body>
         </Sidenav>
       </div>
-      <main className='main'>
+      <main className="main">
         <h1>{activeKey}</h1>
-        <iframe src="http://localhost:80"></iframe>
+        <iframe src={getIframeSource(activeKey)} />
       </main>
     </div>
   )
