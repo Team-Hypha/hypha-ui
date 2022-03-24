@@ -1,6 +1,7 @@
 {
   "name": "hypha-ui",
   "version": "0.1.0",
+  "homepage": "/hypha",
   "private": true,
   "dependencies": {
     "@rsuite/icons": "^1.0.2",
