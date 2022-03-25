@@ -1,8 +1,10 @@
-import 'rsuite/dist/rsuite.min.css'
-import './App.css'
+import { useState } from 'react'
+
 import { Sidenav, Nav } from 'rsuite'
 import { Dashboard } from '@rsuite/icons'
-import { useState } from 'react'
+
+import 'rsuite/dist/rsuite.min.css'
+import './App.css'
 
 function App() {
   const [activeKey, setActiveKey] = useState('home')
@@ -12,6 +14,7 @@ function App() {
     <div>
       <div className="nav-wrapper">
         <Sidenav>
+          <img className="logo" src="/hypha/Hypha_logo_color.svg" alt="Hypha Logo" />
           <Sidenav.Body>
             <Nav activeKey={activeKey}>
               <Nav.Item eventKey="home" icon={<Dashboard />} onSelect={handleChangeKey}>
