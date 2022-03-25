@@ -1,10 +1,22 @@
 import { useState } from 'react'
 
 import { Sidenav, Nav } from 'rsuite'
-import { Dashboard } from '@rsuite/icons'
+import { Icon, Dashboard } from '@rsuite/icons'
 
 import 'rsuite/dist/rsuite.min.css'
 import './App.css'
+
+import HyphaSVG from './assets/hypha-logo-color.svg'
+import LokiSVG from './assets/loki-logo.svg'
+import JaegerSVG from './assets/jaeger-logo.svg'
+
+function LokiIcon() {
+  return <Icon as={LokiSVG} />
+}
+
+function JaegerIcon() {
+  return <Icon as={JaegerSVG} />
+}
 
 function App() {
   const [activeKey, setActiveKey] = useState('home')
@@ -14,16 +26,16 @@ function App() {
     <div>
       <div className="nav-wrapper">
         <Sidenav>
-          <img className="logo" src="/hypha/Hypha_logo_color.svg" alt="Hypha Logo" />
+          <HyphaSVG className="logo" />
           <Sidenav.Body>
             <Nav activeKey={activeKey}>
               <Nav.Item eventKey="home" icon={<Dashboard />} onSelect={handleChangeKey}>
                 Home
               </Nav.Item>
-              <Nav.Item eventKey="logs" onSelect={handleChangeKey}>
+              <Nav.Item eventKey="logs" icon={<LokiIcon />} onSelect={handleChangeKey}>
                 Logs
               </Nav.Item>
-              <Nav.Item eventKey="traces" onSelect={handleChangeKey}>
+              <Nav.Item eventKey="traces" icon={<JaegerIcon />} onSelect={handleChangeKey}>
                 Traces
               </Nav.Item>
             </Nav>
