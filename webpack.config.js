@@ -6,6 +6,7 @@ module.exports = {
   output: {
     path: path.resolve(__dirname, 'build'),
     filename: 'index.js',
+    publicPath: '/hypha'
   },
   module: {
     rules: [
@@ -22,7 +23,9 @@ module.exports = {
   },
   plugins: [
     new CopyPlugin({
-      patterns: [{ from: path.resolve(__dirname, 'public'), to: path.resolve(__dirname, 'build') }],
+      patterns: [
+        { from: path.resolve(__dirname, 'public'), to: path.resolve(__dirname, '../hypha-backend/nginx/static/hypha') },
+      ],
     }),
   ],
 }
