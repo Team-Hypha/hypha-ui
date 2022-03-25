@@ -24,9 +24,9 @@ function App() {
   return (
     <div>
       <div className="nav-wrapper">
-        <Sidenav activeKey={activeKey}>
+        <Sidenav>
           <Sidenav.Body>
-            <Nav>
+            <Nav activeKey={activeKey}>
               <Nav.Item eventKey="home" icon={<Dashboard />} onSelect={handleChangeKey}>
                 Home
               </Nav.Item>
