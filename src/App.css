@@ -1,3 +1,9 @@
+:root {
+  --rs-sidenav-default-bg: #f0f0f2;
+  --rs-sidenav-default-selected-text: #2291FA;
+  --rs-text-primary: #0C0E21;
+}
+
 .rs-sidenav-item-active {
   font-weight: bold;
 }
