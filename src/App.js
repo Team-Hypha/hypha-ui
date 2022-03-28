@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Sidenav, Nav } from 'rsuite'
 import { Icon, Dashboard } from '@rsuite/icons'
@@ -21,6 +21,16 @@ function JaegerIcon() {
 function App() {
   const [activeKey, setActiveKey] = useState('home')
   const handleChangeKey = eventKey => setActiveKey(eventKey)
+
+  useEffect(() => {
+    const iframes = document.querySelectorAll('iframe')
+    iframes.forEach(iframe => {
+      iframe.addEventListener('load', () => {
+        const navbar = iframe.contentDocument.querySelector('#reactRoot .css-1k5or0q')
+        navbar.style.display = 'none'
+      })
+    })
+  }, [])
 
   return (
     <div>
