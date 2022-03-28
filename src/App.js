@@ -18,6 +18,19 @@ function JaegerIcon() {
   return <Icon as={JaegerSVG} />
 }
 
+function getParent(el, tagName) {
+  if (el.tagName === tagName) {
+    return el
+  }
+
+  while ((el = el.parentNode)) {
+    if (el.tagName === 'TABLE') return null
+    if (el.tagName === tagName) return el
+  }
+
+  return null
+}
+
 function App() {
   const [activeKey, setActiveKey] = useState('home')
   const handleChangeKey = eventKey => setActiveKey(eventKey)
@@ -30,6 +43,27 @@ function App() {
         navbar.style.display = 'none'
       })
     })
+
+    const iframe = iframes[0]
+    const intervalID = setInterval(() => {
+      try {
+        const logsTable = iframe.contentDocument.querySelector('[aria-label="Log Search panel"] table')
+        logsTable.addEventListener('click', e => {
+          e.preventDefault()
+          const jaegerLink = getParent(e.target, 'A')
+          if (jaegerLink) {
+            const href = jaegerLink.getAttribute('href')
+            iframes[2].src = href
+            handleChangeKey('traces')
+          }
+        })
+        clearInterval(intervalID)
+      } catch (error) {
+        // uncomment to debug
+        // console.log('failed to find logs table')
+        // console.error(error)
+      }
+    }, 5000)
   }, [])
 
   return (
