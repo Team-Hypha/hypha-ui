@@ -88,22 +88,23 @@ function App() {
       </div>
       <main className="main">
         <h1>{activeKey}</h1>
+        {/* prettier-ignore */}
         <iframe
           className={activeKey === 'home' ? '' : 'u-hide'}
           title="home"
-          src="http://localhost:80"
+          src="/"
           allow="fullscreen"
         />
         <iframe
           className={activeKey === 'logs' ? '' : 'u-hide'}
           title="logs"
-          src="http://localhost:80/d/nl-C4rE7k/logs-dashboard?orgId=1"
+          src="/d/nl-C4rE7k/logs-dashboard?orgId=1"
           allow="fullscreen"
         />
         <iframe
           className={activeKey === 'traces' ? '' : 'u-hide'}
           title="traces"
-          src="http://localhost:80/explore?orgId=1&left=%7B%22datasource%22:%22Jaeger%22,%22queries%22:%5B%7B%22refId%22:%22A%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D"
+          src="/explore?orgId=1&left=%7B%22datasource%22:%22Jaeger%22,%22queries%22:%5B%7B%22refId%22:%22A%22%7D%5D,%22range%22:%7B%22from%22:%22now-1h%22,%22to%22:%22now%22%7D%7D"
           allow="fullscreen"
         />
       </main>
