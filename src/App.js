@@ -42,7 +42,7 @@ function hideGrafanaNav(iframe) {
   navbar.style.display = 'none'
 }
 
-function setLogsClickListener(iframe, panelLabel, handleChangeKey) {
+function setLogsClickListener(jaegerIframe, iframe, panelLabel, handleChangeKey) {
   const intervalID = setInterval(() => {
     try {
       const logsTable = iframe.contentDocument.querySelector(`[aria-label="${panelLabel}"] table`)
@@ -51,17 +51,16 @@ function setLogsClickListener(iframe, panelLabel, handleChangeKey) {
         const jaegerLink = getParent(e.target, 'A')
         if (jaegerLink) {
           const href = jaegerLink.getAttribute('href')
-          iframes[2].src = href
+          jaegerIframe.src = href
           handleChangeKey('traces')
         }
       })
       clearInterval(intervalID)
     } catch (error) {
-      // uncomment to debug
-      // console.log('failed to find logs table')
-      // console.error(error)
+      // console.log('Failed to select logs table')
+      // console.log('selector', `[aria-label="${panelLabel}"] table`)
     }
-  }, 5000)
+  }, 2000)
 }
 
 function App() {
@@ -71,8 +70,10 @@ function App() {
   useEffect(() => {
     const iframes = document.querySelectorAll('iframe')
     iframes.forEach(iframe => iframe.addEventListener('load', () => hideGrafanaNav(iframe)))
-    setLogsClickListener(iframes[0], 'Logs with Errors panel', handleChangeKey)
-    setLogsClickListener(iframes[1], 'Logs Search panel', handleChangeKey)
+    iframes[2].addEventListener('load', () => {
+      setLogsClickListener(iframes[2], iframes[0], 'Logs with Errors panel', handleChangeKey)
+      setLogsClickListener(iframes[2], iframes[1], 'Log Search panel', handleChangeKey)
+    })
   }, [])
 
   const openGrafana = () => {
@@ -97,7 +98,7 @@ function App() {
               </Nav.Item>
               <Nav.Item icon={<GrafanaIcon />} onSelect={openGrafana}>
                 Open Grafana
-                <ExternalLinkThinSVG className="external-link-icon"/>
+                <ExternalLinkThinSVG className="external-link-icon" />
               </Nav.Item>
             </Nav>
           </Sidenav.Body>
@@ -105,7 +106,7 @@ function App() {
       </div>
       <main className="main">
         <h1>{activeKey}</h1>
-        <hr className='heading-seperator'/>
+        <hr className="heading-seperator" />
         {/* prettier-ignore */}
         <iframe
           className={activeKey === 'home' ? '' : 'u-hide'}
