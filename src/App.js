@@ -42,7 +42,7 @@ function hideGrafanaNav(iframe) {
   navbar.style.display = 'none'
 }
 
-function setLogsClickListener(iframe, panelLabel) {
+function setLogsClickListener(iframe, panelLabel, handleChangeKey) {
   const intervalID = setInterval(() => {
     try {
       const logsTable = iframe.contentDocument.querySelector(`[aria-label="${panelLabel}"] table`)
@@ -71,8 +71,8 @@ function App() {
   useEffect(() => {
     const iframes = document.querySelectorAll('iframe')
     iframes.forEach(iframe => iframe.addEventListener('load', () => hideGrafanaNav(iframe)))
-    setLogsClickListener(iframes[0], 'Logs with Errors panel')
-    setLogsClickListener(iframes[1], 'Logs Search panel')
+    setLogsClickListener(iframes[0], 'Logs with Errors panel', handleChangeKey)
+    setLogsClickListener(iframes[1], 'Logs Search panel', handleChangeKey)
   }, [])
 
   const openGrafana = () => {
