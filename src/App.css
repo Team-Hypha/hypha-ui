@@ -1,7 +1,7 @@
 :root {
   --rs-sidenav-default-bg: #f0f0f2;
-  --rs-sidenav-default-selected-text: #2291FA;
-  --rs-text-primary: #0C0E21;
+  --rs-sidenav-default-selected-text: #2291fa;
+  --rs-text-primary: #0c0e21;
 }
 
 .rs-sidenav-item-active {
@@ -55,4 +55,10 @@
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 1);
+}
+
+.external-link-icon {
+  width: 14px;
+  height: 12px;
+  margin-left: 7px;
 }

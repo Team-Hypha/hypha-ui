@@ -9,6 +9,8 @@ import './App.css'
 import HyphaSVG from './assets/hypha-logo-color.svg'
 import LokiSVG from './assets/loki-logo.svg'
 import JaegerSVG from './assets/jaeger-logo.svg'
+import GrafanaSVG from './assets/grafana-logo.svg'
+import ExternalLinkThinSVG from './assets/external-link-thin.svg'
 
 function LokiIcon() {
   return <Icon as={LokiSVG} />
@@ -16,6 +18,10 @@ function LokiIcon() {
 
 function JaegerIcon() {
   return <Icon as={JaegerSVG} />
+}
+
+function GrafanaIcon() {
+  return <Icon as={GrafanaSVG} />
 }
 
 function getParent(el, tagName) {
@@ -66,6 +72,10 @@ function App() {
     }, 5000)
   }, [])
 
+  const openGrafana = () => {
+    window.open('/', '_blank')
+  }
+
   return (
     <div>
       <div className="nav-wrapper">
@@ -81,6 +91,10 @@ function App() {
               </Nav.Item>
               <Nav.Item eventKey="traces" icon={<JaegerIcon />} onSelect={handleChangeKey}>
                 Traces
+              </Nav.Item>
+              <Nav.Item icon={<GrafanaIcon />} onSelect={openGrafana}>
+                Open Grafana
+                <ExternalLinkThinSVG className="external-link-icon"/>
               </Nav.Item>
             </Nav>
           </Sidenav.Body>
