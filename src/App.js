@@ -102,6 +102,7 @@ function App() {
       </div>
       <main className="main">
         <h1>{activeKey}</h1>
+        <hr className='heading-seperator'/>
         {/* prettier-ignore */}
         <iframe
           className={activeKey === 'home' ? '' : 'u-hide'}
