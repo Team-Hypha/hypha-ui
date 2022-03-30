@@ -37,39 +37,42 @@ function getParent(el, tagName) {
   return null
 }
 
+function hideGrafanaNav(iframe) {
+  const navbar = iframe.contentDocument.querySelector('#reactRoot .css-1k5or0q')
+  navbar.style.display = 'none'
+}
+
+function setLogsClickListener(iframe, panelLabel) {
+  const intervalID = setInterval(() => {
+    try {
+      const logsTable = iframe.contentDocument.querySelector(`[aria-label="${panelLabel}"] table`)
+      logsTable.addEventListener('click', e => {
+        e.preventDefault()
+        const jaegerLink = getParent(e.target, 'A')
+        if (jaegerLink) {
+          const href = jaegerLink.getAttribute('href')
+          iframes[2].src = href
+          handleChangeKey('traces')
+        }
+      })
+      clearInterval(intervalID)
+    } catch (error) {
+      // uncomment to debug
+      // console.log('failed to find logs table')
+      // console.error(error)
+    }
+  }, 5000)
+}
+
 function App() {
   const [activeKey, setActiveKey] = useState('home')
   const handleChangeKey = eventKey => setActiveKey(eventKey)
 
   useEffect(() => {
     const iframes = document.querySelectorAll('iframe')
-    iframes.forEach(iframe => {
-      iframe.addEventListener('load', () => {
-        const navbar = iframe.contentDocument.querySelector('#reactRoot .css-1k5or0q')
-        navbar.style.display = 'none'
-      })
-    })
-
-    const iframe = iframes[0]
-    const intervalID = setInterval(() => {
-      try {
-        const logsTable = iframe.contentDocument.querySelector('[aria-label="Log Search panel"] table')
-        logsTable.addEventListener('click', e => {
-          e.preventDefault()
-          const jaegerLink = getParent(e.target, 'A')
-          if (jaegerLink) {
-            const href = jaegerLink.getAttribute('href')
-            iframes[2].src = href
-            handleChangeKey('traces')
-          }
-        })
-        clearInterval(intervalID)
-      } catch (error) {
-        // uncomment to debug
-        // console.log('failed to find logs table')
-        // console.error(error)
-      }
-    }, 5000)
+    iframes.forEach(iframe => iframe.addEventListener('load', () => hideGrafanaNav(iframe)))
+    setLogsClickListener(iframes[0], 'Logs with Errors panel')
+    setLogsClickListener(iframes[1], 'Logs Search panel')
   }, [])
 
   const openGrafana = () => {
